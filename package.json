@@ -8,7 +8,11 @@
   },
   "homepage": "https://github.com/nurodev/vite-plugin-splitbee",
   "bugs": "https://github.com/nurodev/vite-plugin-splitbee/issues",
-  "author": "nurodev",
+  "author": {
+		"name": "nurodev",
+		"email": "me@nuro.dev",
+		"url": "https://nuro.dev"
+	},
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
