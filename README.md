@@ -31,7 +31,7 @@ export default {
   plugins: [
     ViteSplitbee({
       /// When using A/B testing, you can prevent the initial content flash by making the script blocking/synchronous (Optional) [Default: false]
-	    async: false;
+      async: false;
 
       /// Whether to include Splitbee analytics during local development (Optional) [Default: false]
       enable_development: false;
