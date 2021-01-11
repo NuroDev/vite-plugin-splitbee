@@ -19,7 +19,7 @@ import { ViteSplitbee } from 'vite-plugin-splitbee';
 
 export default {
   plugins: [
-	  ViteSplitbee(),
+    ViteSplitbee(),
   ]
 }
 ```
