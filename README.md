@@ -4,6 +4,8 @@ A small plugin to add Splitbee support to Vite
 
 [![License](https://img.shields.io/badge/-MIT-f56565.svg?longCache=true&style=for-the-badge)](https://github.com/nurodev/rust-cross-release/blob/main/LICENSE)
 [![Vite](https://img.shields.io/badge/-vite%202.x-3eaf7c.svg?longCache=true&style=for-the-badge)](https://vitejs.dev)
+[![Version](https://img.shields.io/npm/v/vite-plugin-splitbee?label=%20&style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-splitbee)
+[![Downloads](https://img.shields.io/npm/dm/vite-plugin-splitbee?label=%20&logo=Docusign&logoColor=white&style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-splitbee)
 
 ## 🦄 Usage
 
