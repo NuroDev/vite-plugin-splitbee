@@ -36,7 +36,7 @@ export default {
       async: true,
 
       /// Whether to include Splitbee analytics during local development (Optional) [Default: false]
-      enable_development: false,
+      dev: false,
 
       /// Number of milliseconds to wait before loading the Splitbee (Optional) [Default: 0]
       delay_timeout: 0,
