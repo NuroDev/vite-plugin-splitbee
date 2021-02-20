@@ -17,11 +17,11 @@ npm install --save-dev vite-plugin-splitbee # yarn add -D vite-plugin-splitbee
 Add it to your Vite config
 ```typescript
 // vite.config.ts
-import { ViteSplitbee } from 'vite-plugin-splitbee';
+import Splitbee from 'vite-plugin-splitbee';
 
 export default {
   plugins: [
-    ViteSplitbee(),
+    Splitbee(),
   ]
 }
 ```
@@ -30,18 +30,20 @@ export default {
 
 ```typescript
 export default {
-  plugins: [
-    ViteSplitbee({
-      /// When using A/B testing, you can prevent the initial content flash by making the script blocking/synchronous (Optional) [Default: true]
-      async: true,
+    plugins: [
+        Splitbee({
+            // To use Splitbee on another subdomain.
+            // Token can be found in project settings
+            token: 'YOUR_TOKEN', 
 
-      /// Whether to include Splitbee analytics during local development (Optional) [Default: false]
-      dev: false,
+            // Enable cookie-less mode. Defaults to `false`
+            disableCookie: false,
 
-      /// Number of milliseconds to wait before loading the Splitbee (Optional) [Default: 0]
-      delay_timeout: 0,
-    }),
-  ]
+            // Set custom urls when using proxying
+            scriptUrl: "https://cdn.splitbee.io/sb.js",
+            apiUrl: "https://hive.splitbee.io",
+        }),
+    ],
 }
 ```
 
