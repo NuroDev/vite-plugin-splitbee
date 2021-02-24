@@ -20,9 +20,9 @@ Add it to your Vite config
 import Splitbee from 'vite-plugin-splitbee';
 
 export default {
-  plugins: [
-    Splitbee(),
-  ]
+    plugins: [
+        Splitbee(),
+    ]
 }
 ```
 
@@ -32,16 +32,23 @@ export default {
 export default {
     plugins: [
         Splitbee({
-            // To use Splitbee on another subdomain.
-            // Token can be found in project settings
-            token: 'YOUR_TOKEN', 
+            /// Provide a custom API url to use instead of the default Splitbee one (Optional) [Default: 'https://hive.splitbee.io']
+            api_url?: string;
 
-            // Enable cookie-less mode. Defaults to `false`
-            disableCookie: false,
+            /// When using A/B testing, you can prevent the initial content flash by making the script blocking/synchronous (Optional) [Default: false]
+            async?: boolean;
 
-            // Set custom urls when using proxying
-            scriptUrl: "https://cdn.splitbee.io/sb.js",
-            apiUrl: "https://hive.splitbee.io",
+            /// Whether to include Splitbee analytics during local development (Optional) [Default: false]
+            dev?: boolean;
+
+            /// Whether to enable cookie-less mode (Optional) [Default: false]
+            disable_cookie?: boolean;
+
+            /// To use Splitbee on another subdomain you can provide a project token. This can be found in project settings (Optional)
+            token?: string;
+
+            /// URL to Splitbee script to load (Optional) [Default: 'https://cdn.splitbee.io/sb.js']
+            url?: string;
         }),
     ],
 }
