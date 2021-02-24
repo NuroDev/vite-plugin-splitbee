@@ -26,6 +26,7 @@
     "release": "npx bumpp --commit --tag --push && npm run build && npm publish"
   },
   "devDependencies": {
+    "@splitbee/web": "^0.2.4",
     "@types/node": "^14.14.31",
     "rimraf": "^3.0.2",
     "tsup": "^4.0.0",

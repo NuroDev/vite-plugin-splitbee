@@ -1,45 +1,68 @@
+import _splitbee from '@splitbee/web';
+
 import type { Plugin, ResolvedConfig } from 'vite';
 
 export interface SplitbeeOptions {
+	/// Provide a custom API url to use instead of the default Splitbee one (Optional) [Default: 'https://hive.splitbee.io']
+	api_url?: string;
+
 	/// When using A/B testing, you can prevent the initial content flash by making the script blocking/synchronous (Optional) [Default: false]
 	async?: boolean;
 
 	/// Whether to include Splitbee analytics during local development (Optional) [Default: false]
 	dev?: boolean;
-	
-	/// Number of milliseconds to wait before loading the Splitbee (Optional) [Default: 0]
-	delay_timeout?: number;
+
+	/// Whether to enable cookie-less mode (Optional) [Default: false]
+	disable_cookie?: boolean;
+
+	/// To use Splitbee on another subdomain you can provide a project token. This can be found in project settings (Optional)
+	token?: string;
+
+	/// URL to Splitbee script to load (Optional) [Default: 'https://cdn.splitbee.io/sb.js']
+	url?: string;
 };
 
-export const ViteSplitbee = (options: SplitbeeOptions = {}): Plugin => {
+export const API_URL = 'https://hive.splitbee.io';
+
+export const SCRIPT_URL = 'https://cdn.splitbee.io/sb.js';
+
+export const Splitbee = (options: SplitbeeOptions = {}): Plugin => {
 	const {
+		api_url = API_URL,
 		async = true,
 		dev = false,
-		delay_timeout = 0,
+		disable_cookie = false,
+		url = SCRIPT_URL,
 	} = options;
-
-	const script_src: string = `(function(){var w=window;var sb=w.splitbee;var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Splitbee=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=${async};s.src='https://cdn.splitbee.io/sb.js';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}function ld(){setTimeout(l, ${delay_timeout});}if(w.attachEvent){w.attachEvent('onload',ld);}else{w.addEventListener('load',ld,false);}})()`;
 
 	let viteConfig: ResolvedConfig | undefined;
 
 	return {
 		name: 'vite-plugin-splitbee',
+		enforce: 'post',
 		configResolved(config) {
 			viteConfig = config;
 		},
-		transformIndexHtml: {
-			enforce: 'post',
-			transform(html: any) {
-				if (!viteConfig?.isProduction && !dev) return html;
+		transformIndexHtml(html: string) {
+			if (!viteConfig?.isProduction && !dev) return html;
 
-				// Inject the Splitbee script at the end of the `<head>`
-				return html.replace(
-					'</head>',
-					`<script>${script_src}</script></head>`,
-				);
-			},
+			const script = document.createElement('script');
+			script.src = url;
+			script.async = async;
+
+			if (api_url) script.dataset.api = api_url;
+			if (disable_cookie) script.dataset.noCookie = '1';
+			if (options.token) script.dataset.token = options.token;
+
+			// Inject the Splitbee script at the end of the `<head>`
+			return html.replace(
+				'</head>',
+				`${script.outerHTML}</head>`,
+			);
 		},
 	}
 };
 
-export default ViteSplitbee;
+export const splitbee = _splitbee;
+
+export default Splitbee;
